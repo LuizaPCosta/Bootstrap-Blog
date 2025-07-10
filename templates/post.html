@@ -9,9 +9,9 @@
           <h1>{{ post.title }}</h1>
           <h2 class="subheading">{{ post.subtitle }}</h2>
           <span class="meta"
-            >Posted by
+            >Postado por
             <a href="#">{{ post.author.name }}</a>
-            on {{ post.date }}
+            em {{ post.date }}
           </span>
         </div>
       </div>
@@ -30,7 +30,7 @@
           <a
             class="btn btn-primary float-right"
             href="{{url_for('edit_post', post_id=post.id)}}"
-            >Edit Post</a>
+            >Editar Post</a>
         </div>
         {% endif %}
 
@@ -39,7 +39,7 @@
           {{ ckeditor.load() }} {{ ckeditor.config(name='body') }} {{
           render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
         {% else %}
-            {{"Login or create an account to leave a comment"}}
+            {{"Faça login ou crie uma conta para deixar um comentário"}}
         {% endif %}
         <div class="comment">
           <ul class="commentList">

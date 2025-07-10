@@ -15,10 +15,10 @@ import smtplib
 import os
 
 email_sender = "luiza.dpcosta@gmail.com"
-app_password = os.environ.get("APP_PASSWORD")
+app_password = "kyoo qwgv joxc avxn" #os.environ.get("APP_PASSWORD")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("SECRET_APP_KEY")
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b' #os.environ.get("SECRET_APP_KEY")
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -95,7 +95,7 @@ def register():
     register_form = RegisterForm()
     if register_form.validate_on_submit(): # if post
         if len(db.session.execute(db.select(User).where(User.email == register_form.email.data)).scalars().all()) > 0: # if it is already registered
-            flash("You already have an account on this email address")
+            flash("Você já tem uma conta com esse endereço de email!")
             return redirect(url_for('login'))
         else:
             new_user = User(
@@ -116,7 +116,7 @@ def login():
     if login_form.validate_on_submit():
         user = db.session.execute(db.select(User).where(User.email == login_form.email.data)).scalars().all()
         if len(user) == 0:
-            flash("Wrong email address. Maybe you don't have an account yet?")
+            flash("Endereço de email errado. Talvez você ainda não tenho uma conta registrada.")
             return render_template("login.html", form= login_form)  
         else:
             for user in user:
@@ -125,7 +125,7 @@ def login():
                     login_user(user)
                     return redirect(url_for('get_all_posts'))
                 else:
-                    flash("Invalid password")
+                    flash("Senha errada")
                     return render_template("login.html", form = login_form)
     else:
         return render_template("login.html", form = login_form)
@@ -134,7 +134,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You have successfully logged yourself out.')
+    flash('Sucesso ao deslogar')
     return redirect(url_for('get_all_posts'))
 
 
@@ -151,7 +151,7 @@ def show_post(post_id):
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
         if not current_user.is_authenticated:
-            flash("You need to login or register to comment.")
+            flash("Você precisa fazer login para deixar um comentário")
             return redirect(url_for("login"))
 
         new_comment = Comment(
